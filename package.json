@@ -1,0 +1,18 @@
+{
+  "name": "registros-sanidad-vegetal",
+  "version": "0.0.1",
+  "description": "Control de registros para el laboratorio de sanidad vegetal de la Universidad Católica de Oriente",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juan Diego Cardona - Maria Camila Castrillón",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "colors": "^1.3.3",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.0.0",
+    "mongoose": "^5.3.16"
+  }
+}
