@@ -3,6 +3,11 @@ const Schema = mongoose.Schema;
 
 
 let registroSchema = new Schema({
+
+    fecha_creacion: {
+        type: Object,
+    },
+
     descripcion: {
         type: String,
         required: [true, 'La descripcion es necesaria']
@@ -47,12 +52,14 @@ let registroSchema = new Schema({
     },
 
     analista: {
-        type: Number
+        type: Number,
+        required: [true, 'El id del analista es necesario']
     },
     state: {
         type: Boolean,
         default: true
     }
 });
+
 
 module.exports = mongoose.model('Registro', registroSchema);
