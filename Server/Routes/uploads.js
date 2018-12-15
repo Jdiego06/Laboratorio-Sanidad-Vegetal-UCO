@@ -1,13 +1,10 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const fs = require('fs');
-const path = require('path');
 const Registro = require('../models/registros');
+const fileSystem = require('../Middlewares/fileSystem');
 const app = express();
 
 app.use(fileUpload());
-
-
 
 
 app.put('/UploadAudioReg/:id', (req, res) => {
@@ -130,9 +127,7 @@ function MoverImagen(id, res, registroDb, archivo, finish) {
 
     let nombreArchivo = `${id}-${Date.now()}.${extencion}`;
 
-    console.log(nombreArchivo);
-
-    archivo.mv(`../Uploads/Registros-Imagenes/${nombreArchivo}`, (err) => {
+    archivo.mv(`./Uploads/Registros-Imagenes/${nombreArchivo}`, (err) => {
 
         if (err)
             return res.status(500).json({
@@ -192,7 +187,7 @@ function MoverAudio(id, res, archivo) {
 
     let nombreArchivo = `${id}-${Date.now()}.${extencion}`;
 
-    archivo.mv(`../Uploads/Registros-Audios/${nombreArchivo}`, (err) => {
+    archivo.mv(`./Uploads/Registros-Audios/${nombreArchivo}`, (err) => {
 
         if (err)
             return res.status(500).json({
@@ -212,7 +207,7 @@ function MoverAudio(id, res, archivo) {
 
 
         if (registroDb.nota_voz && (registroDb.nota_voz != "")) {
-            BorrarArchivo(registroDb.nota_voz, 'Registros-Audios');
+            fileSystem.BorrarArchivo(registroDb.nota_voz, 'Registros-Audios');
         }
 
 
@@ -236,16 +231,5 @@ function MoverAudio(id, res, archivo) {
         });
     });
 };
-
-
-
-function BorrarArchivo(NombreArchivo, tipo) {
-    let Path = path.resolve(__dirname, `../../Uploads/${tipo}/${NombreArchivo}`);
-
-    if (fs.existsSync(Path)) {
-        fs.unlinkSync(Path);
-    };
-};
-
 
 module.exports = app;
