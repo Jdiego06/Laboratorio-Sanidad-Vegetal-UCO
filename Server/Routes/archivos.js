@@ -20,7 +20,7 @@ app.get('/archivos/:tipo/:fileName', (req, res) => {
     } else if (tipo == 'imagen') {
         tipo = 'Registros-Imagenes'
     } else {
-        res.status(400).json({
+        return res.status(400).json({
             ok: false,
             msg: 'El tipo de archivo no es válido'
         });
