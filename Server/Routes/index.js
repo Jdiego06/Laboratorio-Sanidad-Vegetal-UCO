@@ -3,7 +3,6 @@ const app = express();
 
 
 app.use(require('./registros'));
-app.use(require('./uploads'));
 app.use(require('./archivos'));
 
 

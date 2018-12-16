@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const Mongo = require('./DataBase/mongo');
 const colors = require('colors');
 const app = express();
+const fileUpload = require('express-fileupload');
 
 
 
@@ -12,6 +13,10 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use(bodyParser.json());
+
+
+// Para subir archivo con express
+app.use(fileUpload());
 
 
 // Configuracion global de rutas

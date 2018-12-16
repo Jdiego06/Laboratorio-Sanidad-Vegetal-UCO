@@ -1,4 +1,5 @@
 // Obtiene la fecha usando un ObjectId
+
 function ObtenerFecha(id) {
 
     let timestamp = id.getTimestamp();
@@ -33,6 +34,7 @@ function ObtenerFecha(id) {
 
 
 // Obtiene la fecha actual del sistema
+
 function ObtenerFechaActual() {
 
     let timestamp = new Date();

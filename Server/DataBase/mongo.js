@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const colors = require('colors');
 
 
-
-
+// Conexion con la base de datos
 
 ConectMongo = function () {
     mongoose.connect(process.env.UrlDB, {

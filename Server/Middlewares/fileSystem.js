@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 
 
+
+// Borra un archivo de la carpeta Uploads
+
 function BorrarArchivo(NombreArchivo, tipo) {
     let Path = path.resolve(__dirname, `../../Uploads/${tipo}/${NombreArchivo}`);
 

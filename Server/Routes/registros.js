@@ -1,5 +1,4 @@
 const express = require('express');
-var mongoose = require('mongoose');
 const Registro = require('../models/registros');
 const Fecha = require('../Middlewares/fechas');
 const app = express();
@@ -7,7 +6,7 @@ const fileSystem = require('../Middlewares/fileSystem');
 
 
 
-
+// Agrega un nuevo registro a la base de datos
 
 app.post('/registros', (req, res) => {
 
@@ -35,6 +34,7 @@ app.post('/registros', (req, res) => {
             });
         };
 
+        // Crea el campo 'fecha_creacion' de acuerdo al id del nuevo registro
 
         Registro.findByIdAndUpdate(registroDb._id, {
             fecha_creacion: Fecha.ObtenerFecha(registroDb._id)
@@ -57,6 +57,9 @@ app.post('/registros', (req, res) => {
 });
 
 
+
+// Actualiza un registro
+
 app.put('/registros/:id', (req, res) => {
 
 
@@ -64,13 +67,13 @@ app.put('/registros/:id', (req, res) => {
     let bodyOne = req.body;
 
     // Selecciona solo los parametros enviados, no modifica los existenes, no cambia la fecha
+
     let body = {}
     for (key in bodyOne) {
         if (bodyOne[key] != null || bodyOne[key] != undefined) {
             body[key] = bodyOne[key]
         };
     };
-
 
     Registro.findByIdAndUpdate(id, body, {
         new: true
@@ -90,6 +93,7 @@ app.put('/registros/:id', (req, res) => {
 });
 
 
+// Busca todos los registros que coincidan con el parametro de busqueda enviado
 
 app.get('/registros/buscar', (req, res) => {
 
@@ -97,9 +101,7 @@ app.get('/registros/buscar', (req, res) => {
     termino = req.query.termino;
     parametro = req.query.parametro;
 
-
-
-    let regex = new RegExp(termino, 'i');
+    let regex = new RegExp(termino, 'i'); // Expresion regular para la búsqueda en la BD, no discrimina entre mayuscula y minuscula
 
     Registro.find({
         [parametro]: regex
@@ -121,6 +123,7 @@ app.get('/registros/buscar', (req, res) => {
 });
 
 
+// Busca un registro en la base de datos de acuerdo al Id enviado
 
 app.get('/registros/:id', (req, res) => {
 
@@ -151,6 +154,7 @@ app.get('/registros/:id', (req, res) => {
     });
 });
 
+// Borra un registro de la base de datos de acuerdo al Id enviado
 
 app.delete('/registros/:id', (req, res) => {
 
@@ -181,6 +185,8 @@ app.delete('/registros/:id', (req, res) => {
 
         let errores = [];
 
+        // Intenta borrar el archivo de audio, y almacena el error si se presenta
+
         if (Audio != undefined) {
             try {
                 fileSystem.BorrarArchivo(Audio, 'Registros-Audios');
@@ -188,6 +194,8 @@ app.delete('/registros/:id', (req, res) => {
                 errores[errores.length] = `${Audio}`
             };
         };
+
+        // Intenta borrar las imagenes, y almacena los errores si se presentan
 
 
         if (Imagenes != [] || Imagenes != undefined) {
@@ -201,6 +209,8 @@ app.delete('/registros/:id', (req, res) => {
             };
         };
 
+        // Elimina el registro de la base de datos
+
         Registro.findByIdAndRemove(id, (err) => {
 
             if (err) {
@@ -209,7 +219,6 @@ app.delete('/registros/:id', (req, res) => {
                     err
                 });
             } else {
-
                 if (errores.length > 0) {
                     errN = `Los Siguientes archivos no se encontraron, o no fueron borrados: ${errores}.`
                 } else {
