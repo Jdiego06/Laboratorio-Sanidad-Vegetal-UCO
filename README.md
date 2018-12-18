@@ -5,7 +5,7 @@ Para instalar paquetes, ejecutar el comando:
 ```npm install```
 
 
-Las funcionalidades, y rutas se encuentran en:
+Las funcionalidades y rutas del servidor se encuentran en:
 
 [PostMan](https://documenter.getpostman.com/view/5902689/RzfmEmdH)
 
