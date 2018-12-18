@@ -5,9 +5,9 @@ Para instalar paquetes, ejecutar el comando:
 ```npm install```
 
 
-El Servidor Rest, con las siguientes características
+Las funcionalidades, y rutas se encuentran en:
 
-- Almacenar Formularios
-- Almacenar Imagenes
+[PostMan](https://documenter.getpostman.com/view/5902689/RzfmEmdH)
+
 
 
