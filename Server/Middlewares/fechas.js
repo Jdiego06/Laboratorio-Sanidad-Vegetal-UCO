@@ -13,13 +13,39 @@ function ObtenerFecha(id) {
     let minutos = timestamp.getMinutes();
     let segundos = timestamp.getSeconds();
 
-    if (hora > 12) {
+
+    if (hora == 12) {
+        horam = hora
+        m = 'PM';
+    } else if (hora > 12) {
         horam = hora - 12
         m = 'PM';
     } else {
         m = 'AM'
         horam = hora
     };
+
+
+    if (dia < 10) {
+        dia = `0${dia}`
+    }
+
+    if (mesT < 10) {
+        mesT = `0${mesT}`
+    }
+
+    if (horam < 10) {
+        horam = `0${horam}`
+    }
+
+    if (minutos < 10) {
+        minutos = `0${minutos}`
+    }
+
+    if (segundos < 10) {
+        segundos = `0${segundos}`
+    }
+
 
     return fecha = {
         fecha: `${dia} de ${mesT} del ${anio} ${horam}:${minutos}:${segundos} ${m}`,
@@ -48,13 +74,40 @@ function ObtenerFechaActual() {
     let minutos = timestamp.getMinutes();
     let segundos = timestamp.getSeconds();
 
-    if (hora > 12) {
+    if (hora == 12) {
+        horam = hora
+        m = 'PM';
+    } else if (hora > 12) {
         horam = hora - 12
         m = 'PM';
     } else {
         m = 'AM'
         horam = hora
     };
+
+
+    if (dia < 10) {
+        dia = `0${dia}`
+    }
+
+    if (mesT < 10) {
+        mesT = `0${mesT}`
+    }
+
+    if (horam < 10) {
+        horam = `0${horam}`
+    }
+
+    if (minutos < 10) {
+        minutos = `0${minutos}`
+    }
+
+    if (segundos < 10) {
+        segundos = `0${segundos}`
+    }
+
+
+
 
     return fecha = {
         fecha: `${dia} de ${mesT} del ${anio} ${horam}:${minutos}:${segundos} ${m}`,

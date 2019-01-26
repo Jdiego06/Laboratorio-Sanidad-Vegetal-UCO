@@ -6,6 +6,17 @@ const fileSystem = require('../Middlewares/fileSystem');
 
 
 
+
+
+// Para probar la conexión con el servidor
+
+app.get('/test', (req, res) => {
+    return res.status(200).json({
+        ok: true
+    });
+});
+
+
 // Agrega un nuevo registro a la base de datos
 
 app.post('/registros', (req, res) => {
@@ -50,7 +61,7 @@ app.post('/registros', (req, res) => {
             };
             res.status(201).json({
                 ok: true,
-                producto: registroDb
+                Registro: registroDb
             });
         });
     });
@@ -87,7 +98,7 @@ app.put('/registros/:id', (req, res) => {
         };
         res.status(201).json({
             ok: true,
-            producto: registroDb
+            Registro: registroDb
         });
     });
 });
@@ -97,15 +108,25 @@ app.put('/registros/:id', (req, res) => {
 
 app.get('/registros/buscar', (req, res) => {
 
-
+    pagina = Number(req.query.pagina) || 0;
+    pagina = 2 * pagina;
     termino = req.query.termino;
     parametro = req.query.parametro;
 
-    let regex = new RegExp(termino, 'i'); // Expresion regular para la búsqueda en la BD, no discrimina entre mayuscula y minuscula
+    let regex = new RegExp
+
+    if (parametro == 'analista') {
+        termino = Number(termino);
+        regex=termino;
+    } else {
+        regex = new RegExp(termino, 'i'); // Expresion regular para la búsqueda en la BD, no discrimina entre mayuscula y minuscula
+    }
 
     Registro.find({
         [parametro]: regex
-    }).exec((err, registroDb) => {
+    }).limit(10).sort({
+        _id: -1
+    }).skip(pagina).exec((err, registroDb) => {
 
         if (err) {
             return res.status(500).json({
@@ -149,7 +170,7 @@ app.get('/registros/:id', (req, res) => {
 
         res.json({
             ok: true,
-            producto: RegistroDb
+            Registro: RegistroDb
         });
     });
 });

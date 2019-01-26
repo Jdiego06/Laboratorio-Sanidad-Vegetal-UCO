@@ -53,11 +53,8 @@ let registroSchema = new Schema({
 
     analista: {
         type: Number,
-        required: [true, 'El id del analista es necesario']
-    },
-    state: {
-        type: Boolean,
-        default: true
+        required: [true, 'El id del analista es necesario'],
+        default: 0
     }
 });
 
